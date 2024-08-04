@@ -1,0 +1,80 @@
+/* views/signup.css */
+
+/* Center the signup box */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+/*
+h1{
+
+    font-family: Helvetica Neue;
+    font-size: 35px;
+}
+p{
+
+    color: dimgray;
+    font-size: 20px;
+}
+*/
+.login-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 350px; /* Set this to be wider than the input fields */
+}
+
+.login-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
+}
+
+/* Style input fields */
+input[type="email"],
+input[type="password"],
+input[type="text"],
+input[type="number"] {
+    width: 90%; /* Slightly smaller width */
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Add hover effect */
+input[type="email"]:hover,
+input[type="password"]:hover,
+input[type="text"]:hover,
+input[type="number"]:hover {
+    transform: scale(1.05);
+}
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #0056b3;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #28a745;
+    transform: scale(1.1);
+}
+#message{
+    color: red;
+    font-size: 18px;
+}
+
+
+

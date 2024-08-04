@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Posts</title>
+    <link rel="stylesheet" href="/css/userPosts.css">
+</head>
+<body>
+
+<div class="timeline-container">
+    <h1>Posts by <%= user.name %></h1>
+    <ul>
+        <% posts.forEach(post => { %>
+            <li class="post">
+                <p><%= post.content %></p>
+                <small>Posted on: <%= new Date(post.timestamp).toLocaleDateString() %></small><br><br>
+
+                <!-- Link to view a single post -->
+                <button onclick="navigateToUpdate(<%= post.id %>)" style="background-color: #28a745; color: #fff; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Update</button>
+                <form action="/delete-post/<%= post.id %>" method="POST" style="display:inline;">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" style="background-color: #dc3545; color: #fff; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Delete</button>
+                </form><br>
+
+
+
+
+
+
+                <script>
+                    function navigateToUpdate(postId) {
+                        window.location.href = `/update-post/${postId}`;
+                    }
+                    function logout() {
+                        // Redirect to the logout route (adjust the URL as needed)
+                        window.location.href = '/logout';
+                    }
+
+                </script>
+            </li>
+        <% }) %>
+    </ul><br><br>
+    <button onclick="logout()" style="background-color: gray; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Logout</button>
+
+</div>
+</body>
+</html>
+
+

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Comments</title>
+    <link rel="stylesheet" href="/css/timeline.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div class="container">
+    <ul class="comments-list">
+        <% comments.forEach(comment => { %>
+            <li class="comment" id="comment-<%= comment.id %>">
+                <p class="comment-content"><%= comment.content %></p>
+                <small class="comment-timestamp">
+                    <i class="fas fa-user"></i> <%= comment.User.name %> on <%= new Date(comment.timestamp).toLocaleDateString() %>
+                </small><br>
+                <button onclick="navigateToUpdate(<%= comment.id %>)" style="background-color: #28a745; color: #fff; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Update</button>
+                <form action="/delete-comment/<%= comment.id %>" method="POST" style="display:inline;">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" style="background-color: #dc3545; color: #fff; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Delete</button>
+                </form>
+
+
+
+
+
+
+                <script>
+                    function navigateToUpdate(commentId) {
+                        window.location.href = `/update-comment/${commentId}`;
+                    }
+
+
+                </script>
+            </li>
+            <hr class="comment-divider">
+        <% }) %>
+    </ul>
+</div>
+</body>
+</html>
+

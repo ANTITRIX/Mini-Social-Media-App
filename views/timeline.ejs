@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Timeline</title>
+    <link rel="stylesheet" href="/css/timeline.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<div class="container">
+    <form action="/create-post" method="post">
+        <textarea name="content" placeholder="Write your post..." rows="4" required></textarea>
+        <br>
+        <input type="submit" value="Post">
+    </form><br><br>
+
+    <ul class="posts-list">
+        <% posts.forEach(post => { %>
+            <li class="post" id="post-<%= post.id %>">
+                <div class="user-info">
+                    <i class="fas fa-user"></i> <%= post.User.name %>
+                </div>
+                <p class="post-content"><%= post.content %></p>
+                <small class="post-timestamp">
+                    <%= new Date(post.timestamp).toLocaleDateString() %>
+                </small><br><br>
+
+                <form action="/add-comment/<%= post.id %>" method="post" class="comment-form">
+                    <textarea name="comment" placeholder="Add a comment..." rows="2" required></textarea>
+                    <br>
+                    <input type="submit" value="Comment">
+                </form>
+            </li>
+        <% }) %>
+    </ul>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
