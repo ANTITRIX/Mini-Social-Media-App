@@ -1,5 +1,6 @@
 const User = require('../models/Users');
 const Post = require("../models/Post");
+const Comment=require('../models/Comment');
 
 const getUserPosts = async (req, res) => {
     const email = req.session.user.email;
@@ -48,7 +49,7 @@ const createNewPost = async (req, res) => {
             timestamp,
             userId,
         });
-        res.redirect('/user-posts');
+        res.redirect('/timeline');
     } catch (error) {
         console.error('Error creating new post:', error);
         res.status(500).json({ message: 'Error creating post. Please try again later.' });
@@ -65,7 +66,7 @@ const deleteUserPost =async (req, res) => {
             include: Post
         });
         await Post.destroy({ where: { id } });
-        res.render('userPosts', { user, posts: user.posts });
+        res.redirect('/timeline');
     } catch (error) {
         console.error('Error deleting post:', error);
         res.status(500).json({ message: 'Error deleting post. Please try again later.' });
@@ -98,7 +99,7 @@ const updatePostContent = async (req, res) => {
         );
         if (updatedRows > 0) {
             req.session.post = content;
-            res.render('singlePost', req.session);
+            res.redirect('/timeline')
         } else {
             res.status(404).send('Post not found.');
         }
@@ -108,15 +109,24 @@ const updatePostContent = async (req, res) => {
     }
 };
 const getTimelinePosts = async (req, res) => {
-    if(!req.session.user){
-        return res.redirect('/login')
+    if (!req.session.user) {
+        return res.redirect('/login');
     }
     try {
         const posts = await Post.findAll({
-            include: {
-                model: User,
-                attributes: ['name']
-            }
+            include: [
+                {
+                    model: User,
+                    attributes: ['name']
+                },
+                {
+                    model: Comment,
+                    include: {
+                        model: User,
+                        attributes: ['name']
+                    }
+                }
+            ],
         });
 
         res.render('timeline', { posts });
@@ -125,6 +135,7 @@ const getTimelinePosts = async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 };
+
 
 module.exports = {
     getUserPosts,
