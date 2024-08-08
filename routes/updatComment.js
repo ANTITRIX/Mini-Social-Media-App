@@ -32,7 +32,7 @@ router.post('/:id',async (req,res)=>{
         const NewComment = Comment.update({
             content:content,
         }, {where: {id}})
-        res.redirect('/allComments')
+        res.redirect('/timeline')
 
     }
     catch(error){
@@ -45,8 +45,13 @@ router.post('/:id',async (req,res)=>{
 router.delete('/:id',async (req,res)=>{
     const id=req.params.id;
     await Comment.destroy({where:{id}});
-    res.redirect('/allComments');
+    res.redirect('/timeline');
 })
+
+
+
+
+module.exports=router;
 
 
 
