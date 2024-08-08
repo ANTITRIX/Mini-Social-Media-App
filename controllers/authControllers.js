@@ -1,4 +1,3 @@
-// controllers/authController.js
 const User = require('../models/Users');
 const bcrypt=require('bcrypt')
 
@@ -20,39 +19,20 @@ const handleSignin = async (req, res) => {
         const isPasswordMatch = bcrypt.compareSync(req.body.password, user.password);
 
         if (!user) {
-            message = "This email does not have an associated account.";
-            return res.render('signin', { message });
+           // message = "This email does not have an associated account.";
+            return res.render('signin', { message: "This email does not have an associated account.\"" });
         }
-        /*
-        bcrypt.compare(req.body.password, user.password, function(err, response) {
-            if (err) {
-                console.log(err);
-                return res.status(500).json({ message: 'Server error' });
-            }
-
-            if (response) {
-                req.session.isAuth = true;
-                req.session.user = user;
-                req.session.save(() => {
-                    res.redirect('/profile');
-                });
-            } else {
-                message = "Authentication failed. Please check your credentials.";
-                return res.render('signin', { message });
-            }
-        });
-        */
         if (isPasswordMatch) {
             // Passwords match
             req.session.isAuth = true;
             req.session.user = user;
             req.session.save(() => {
-                res.redirect('/profile');
+                res.redirect('/timeline');
             });
         }
         else{
-            message = "Authentication failed. Please check your credentials.";
-            return res.render('signin', { message });
+           // message = "Authentication failed. Please check your credentials.";
+            return res.render('signin', { message :"Authentication failed. Please check your credentials." });
         }
     } catch (error) {
         console.error(error);
