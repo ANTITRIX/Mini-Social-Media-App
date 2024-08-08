@@ -46,7 +46,7 @@ const deleteComment=async (req, res) => {
             where: { id: commentId }
         });
 
-        res.redirect('/allComments');
+        res.redirect('/timeline');
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
