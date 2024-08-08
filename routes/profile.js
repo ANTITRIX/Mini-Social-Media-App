@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
             }
         );
         req.session.user=await User.findOne({where:{email:userEmail}})
-        res.redirect('/profile')
+        res.redirect('/timeline')
     } catch (error) {
         console.log('req body : ')
         console.log(req.body)
@@ -32,6 +32,7 @@ router.post('/', async (req, res) => {
         console.log(req.session)
         console.error('Error updating profile:', error);
         res.status(500).json({ message: 'Error updating profile. Please try again later.' });
+
     }
 });
 module.exports=router;
