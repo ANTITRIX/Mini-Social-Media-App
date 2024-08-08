@@ -156,7 +156,7 @@ app.get('/allComments', async (req, res) => {
 });
 app.get('/logout', (req, res) => {
     req.session.destroy(() => {
-        res.redirect('/login');
+        res.redirect('/');
     });
 });
 console.log("Mailgun API Key:", process.env.MAILGUN_API_KEY);
