@@ -69,8 +69,8 @@ body {
 }
 
 .post:hover {
-    background-color: darkseagreen; /* Our green color for hover */
-    color: #fff; /* Text color for hover */
+    background-color: #e5e7e9 ;
+    color: black; /* Text color for hover */
     cursor: pointer; /* Change cursor on hover */
 }
 
