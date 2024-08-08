@@ -1,11 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Timeline</title>
     <link rel="stylesheet" href="/css/timeline.css">
+    <!-- Include Bootstrap Icons CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </head>
 <body>
+
+<!-- Navigation Bar -->
+<nav class="navbar">
+    <ul>
+        <li><a href="/user-posts"><i class="bi bi-file-earmark-text"></i> My Posts</a></li>
+        <li><a href="/allComments"><i class="bi bi-chat-dots"></i> My Comments</a></li>
+        <li><a href="/profile"><i class="bi bi-person-circle"></i> Profile</a></li>
+        <li><a href="/logout"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+    </ul>
+</nav>
 
 <div class="container">
     <form action="/create-post" method="post">
@@ -18,13 +30,29 @@
         <% posts.forEach(post => { %>
             <li class="post" id="post-<%= post.id %>">
                 <div class="user-info">
-                    <i class="fas fa-user"></i> <%= post.User.name %>
+                    <i class="bi bi-person-circle"></i> <%= post.User.name %>
                 </div>
                 <p class="post-content"><%= post.content %></p>
                 <small class="post-timestamp">
                     <%= new Date(post.timestamp).toLocaleDateString() %>
                 </small><br><br>
 
+                <!-- Display comments -->
+                <ul class="comments-list">
+                    <% post.Comments.forEach(comment => { %>
+                        <li class="comment" id="comment-<%= comment.id %>">
+                            <div class="comment-user-info">
+                                <i class="bi bi-person-circle"></i> <%= comment.User.name %>
+                            </div>
+                            <p class="comment-content"><%= comment.content %></p>
+                            <small class="comment-timestamp">
+                                <%= new Date(comment.timestamp).toLocaleDateString() %>
+                            </small>
+                        </li>
+                    <% }) %>
+                </ul>
+
+                <!-- Add Comment Form -->
                 <form action="/add-comment/<%= post.id %>" method="post" class="comment-form">
                     <textarea name="comment" placeholder="Add a comment..." rows="2" required></textarea>
                     <br>
@@ -34,6 +62,7 @@
         <% }) %>
     </ul>
 </div>
+
 </body>
 </html>
 
